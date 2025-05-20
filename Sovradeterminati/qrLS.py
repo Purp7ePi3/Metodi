@@ -1,9 +1,9 @@
 import numpy as np
 import scipy.linalg as spLin
-import SolveTriangular
+from ..Funzioni_ausiliarie import SolveTriangular
 
 def qrLS(A,b):
-#Risolve un sistema sovradeterminato con il metodo QR-LS
+    #Risolve un sistema sovradeterminato con il metodo QR-LS
     n=A.shape[1]  # numero di colonne di A
     Q,R=spLin.qr(A)
     h = Q.T @ b
