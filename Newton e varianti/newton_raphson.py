@@ -1,7 +1,7 @@
 import numpy as np
 import sympy as sp
 
-def my_newton_minimo_MOD(gradiente, Hess, x0, tolx, tolf, nmax):
+def newton_raphson(gradiente, Hess, x0, tolx, tolf, nmax):
 
     """
     Funzione di newton-raphson per calcolare il minimo di una funzione in più variabili, modificato nel caso in cui si utilizzando sympy 
@@ -96,7 +96,7 @@ tolf = 1e-6
 nmax = 100
 
 
-sol, iterations, step_norms = my_newton_minimo_MOD(grad_f, Hess_f, x0, tolx, tolf, nmax)
+sol, iterations, step_norms = newton_raphson(grad_f, Hess_f, x0, tolx, tolf, nmax)
 
 print("Soluzione trovata:", sol)
 print("Numero di iterazioni:", iterations)
