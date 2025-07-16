@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Sistema di Raccomandazione per Metodi di Risoluzione di Sistemi Lineari
 ========================================================================
@@ -38,7 +37,7 @@ def leggi_parametri_terminale():
         return params
     
     except ValueError as e:
-        print(f"❌ Errore nei parametri: {e}")
+        print(f"Errore nei parametri: {e}")
         return None
 
 def raccomanda_metodo(simmetrico, positivo, diag_dom):
@@ -59,10 +58,10 @@ def raccomanda_metodo(simmetrico, positivo, diag_dom):
     pos_desc = "Definita positiva" if positivo else "Non definita positiva"
     diag_desc = "Diagonalmente dominante" if diag_dom else "Non diagonalmente dominante"
     
-    print(f"📊 ANALISI DELLA MATRICE:")
-    print(f"   • Simmetria: {sim_desc}")
-    print(f"   • Positività: {pos_desc}")
-    print(f"   • Dominanza diagonale: {diag_desc}")
+    print(f"ANALISI DELLA MATRICE:")
+    print(f"\tSimmetria: {sim_desc}")
+    print(f"\tPositività: {pos_desc}")
+    print(f"\tDominanza diagonale: {diag_desc}")
     print("-" * 60)
     
     # Determina se è simmetrica definita positiva (SPD)
@@ -142,7 +141,7 @@ def raccomanda_metodo(simmetrico, positivo, diag_dom):
                     f"gauss_seidel.py ({metodi_iterativi['gauss_seidel']})",
                     "numpy.linalg.cholesky() per sistemi piccoli"
                 ],
-                "note": "✅ SPD garantisce convergenza per entrambi i metodi"
+                "note": "SPD garantisce convergenza per entrambi i metodi"
             }
     
     elif diag_dom and not spd:  # Diagonalmente dominante ma non SPD
@@ -166,7 +165,7 @@ def raccomanda_metodo(simmetrico, positivo, diag_dom):
                     f"jacobi.py ({metodi_iterativi['jacobi']})",
                     f"steepestdescent.py ({metodi_iterativi['steepestdescent']}) - solo se SPD"
                 ],
-                "note": "✅ Dominanza diagonale garantisce convergenza"
+                "note": "Dominanza diagonale garantisce convergenza"
             }
         else:  # Non simmetrica, diag. dom., non def. pos. (0,0,1)
             return {
@@ -188,7 +187,7 @@ def raccomanda_metodo(simmetrico, positivo, diag_dom):
                     f"gauss_seidel.py ({metodi_iterativi['gauss_seidel']})",
                     "Metodi diretti per sistemi piccoli"
                 ],
-                "note": "✅ Dominanza diagonale garantisce convergenza per entrambi"
+                "note": "Dominanza diagonale garantisce convergenza per entrambi"
             }
     
     elif simmetrico and not positivo and not diag_dom:  # Solo simmetrica (1,0,0)
@@ -211,7 +210,7 @@ def raccomanda_metodo(simmetrico, positivo, diag_dom):
                 f"gauss_seidel_sor.py ({metodi_iterativi['gauss_seidel_sor']}) - con ω piccolo",
                 "Metodi diretti se dimensioni ridotte"
             ],
-            "note": "⚠️  Convergenza non garantita - testare entrambi i metodi"
+            "note": "Convergenza non garantita - testare entrambi i metodi"
         }
     
     else:  # Matrice generica (0,0,0) o (0,1,0)
@@ -236,84 +235,46 @@ def raccomanda_metodo(simmetrico, positivo, diag_dom):
                 f"Metodi sovradeterminati: qrLS.py ({metodi_diretti['qrLS']})",
                 f"Metodi Newton per sistemi non lineari: newtonsys.py ({metodi_newton['newtonsys']})"
             ],
-            "note": "⚠️  CASO DIFFICILE: Provare entrambi e verificare convergenza"
+            "note": "CASO DIFFICILE: Provare entrambi e verificare convergenza"
         }
 
 def stampa_raccomandazione(raccomandazione):
     """Stampa la raccomandazione in formato leggibile"""
     
-    print(f"🎯 METODI RACCOMANDATI:")
+    print(f"METODI RACCOMANDATI:")
     print()
-    print(f"1️⃣  METODO PRIMARIO:")
-    print(f"   📁 File: {raccomandazione['metodo_primario']['file']}")
-    print(f"   🔧 Nome: {raccomandazione['metodo_primario']['nome']}")
-    print(f"   💡 Descrizione: {raccomandazione['metodo_primario']['descrizione']}")
-    print(f"   ⚡ Complessità: {raccomandazione['metodo_primario']['complessità']}")
-    print(f"   🛡️  Convergenza: {raccomandazione['metodo_primario']['convergenza']}")
+    print(f"METODO PRIMARIO:")
+    print(f"File: {raccomandazione['metodo_primario']['file']}")
+    print(f"Nome: {raccomandazione['metodo_primario']['nome']}")
+    print(f"Descrizione: {raccomandazione['metodo_primario']['descrizione']}")
+    print(f"Complessità: {raccomandazione['metodo_primario']['complessità']}")
+    print(f"Convergenza: {raccomandazione['metodo_primario']['convergenza']}")
     
     print()
-    print(f"2️⃣  METODO SECONDARIO:")
-    print(f"   📁 File: {raccomandazione['metodo_secondario']['file']}")
-    print(f"   🔧 Nome: {raccomandazione['metodo_secondario']['nome']}")
-    print(f"   💡 Descrizione: {raccomandazione['metodo_secondario']['descrizione']}")
-    print(f"   ⚡ Complessità: {raccomandazione['metodo_secondario']['complessità']}")
-    print(f"   🛡️  Convergenza: {raccomandazione['metodo_secondario']['convergenza']}")
+    print(f"METODO SECONDARIO:")
+    print(f"File: {raccomandazione['metodo_secondario']['file']}")
+    print(f"Nome: {raccomandazione['metodo_secondario']['nome']}")
+    print(f"Descrizione: {raccomandazione['metodo_secondario']['descrizione']}")
+    print(f"Complessità: {raccomandazione['metodo_secondario']['complessità']}")
+    print(f"Convergenza: {raccomandazione['metodo_secondario']['convergenza']}")
     
     if 'note' in raccomandazione:
-        print(f"\n📝 NOTE: {raccomandazione['note']}")
+        print(f"\nNOTE: {raccomandazione['note']}")
     
-    print(f"\n🔄 ALTERNATIVE AGGIUNTIVE:")
+    print(f"\nALTERNATIVE AGGIUNTIVE:")
     for alt in raccomandazione['alternative']:
-        print(f"   • {alt}")
-
-def mostra_help():
-    """Mostra le istruzioni d'uso"""
-    print("=" * 70)
-    print("📚 GUIDA ALL'USO")
-    print("=" * 70)
-    print("🚀 UTILIZZO: python metodi_selector.py <simmetrico> <positivo> <diag_dom>")
-    print()
-    print("📊 PARAMETRI (ciascuno 0 o 1):")
-    print()
-    print("   1️⃣  SIMMETRICO:")
-    print("   • 0 = Matrice non simmetrica")
-    print("   • 1 = Matrice simmetrica (A = A^T)")
-    print()
-    print("   2️⃣  POSITIVO:")
-    print("   • 0 = Non definita positiva")
-    print("   • 1 = Definita positiva (x^T·A·x > 0 per ogni x ≠ 0)")
-    print()
-    print("   3️⃣  DIAG_DOM:")
-    print("   • 0 = Non diagonalmente dominante")
-    print("   • 1 = Diagonalmente dominante (|a_ii| > Σ|a_ij| per ogni riga)")
-    print()
-    print("📝 ESEMPI:")
-    print("   python metodi_selector.py 0 0 0  → Matrice generica")
-    print("   python metodi_selector.py 1 1 0  → Simmetrica definita positiva")
-    print("   python metodi_selector.py 0 0 1  → Diagonalmente dominante")
-    print("   python metodi_selector.py 1 0 1  → Simmetrica, diag. dominante")
-    print()
-    print("🎯 COMBINAZIONI IMPORTANTI:")
-    print("   • 1 1 0 o 1 1 1 → SPD: Usa Gradiente Coniugato")
-    print("   • 0 0 1 o 1 0 1 → Diag. dom.: Usa Gauss-Seidel SOR")
-    print("   • 0 0 0 → Generica: Usa Jacobi (prudente)")
-    print("=" * 70)
+        print(f"\t{alt}")
 
 def main():
     """Funzione principale"""
     print("🔬 SISTEMA DI RACCOMANDAZIONE METODI NUMERICI")
     print("=" * 60)
-    
-    # Controlla se è richiesto l'help
-    if len(sys.argv) == 1 or (len(sys.argv) > 1 and sys.argv[1] in ['-h', '--help', 'help']):
-        mostra_help()
-        return
-    
+        
     # Leggi parametri dal terminale
     params = leggi_parametri_terminale()
     if params is None:
-        print("❌ Uso corretto: python metodi_selector.py <simmetrico> <positivo> <diag_dom>")
-        print("💡 Usa 'python metodi_selector.py --help' per maggiori informazioni")
+        print("Uso corretto: python metodi_selector.py <simmetrico> <positivo> <diag_dom>")
+        print("Usa 'python metodi_selector.py --help' per maggiori informazioni")
         return
     
     # Ottieni raccomandazione
@@ -322,7 +283,7 @@ def main():
     # Stampa risultati
     stampa_raccomandazione(raccomandazione)
     
-    print(f"\n📋 PARAMETRI INSERITI: {' '.join(map(str, params))}")
+    print(f"\nPARAMETRI INSERITI: {' '.join(map(str, params))}")
     print("=" * 60)
     print("💡 Usa 'python metodi_selector.py --help' per maggiori informazioni")
 
