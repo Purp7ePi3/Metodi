@@ -1,227 +1,170 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 10,
-   "id": "9080092e-d7f5-4681-a944-9a27ee4c01eb",
-   "metadata": {},
-   "outputs": [
-    {
-     "ename": "FileNotFoundError",
-     "evalue": "[Errno 2] No such file or directory: 'testII.mat'",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
-      "File \u001b[1;32m~\\anaconda3\\Lib\\site-packages\\scipy\\io\\matlab\\_mio.py:39\u001b[0m, in \u001b[0;36m_open_file\u001b[1;34m(file_like, appendmat, mode)\u001b[0m\n\u001b[0;32m     38\u001b[0m \u001b[38;5;28;01mtry\u001b[39;00m:\n\u001b[1;32m---> 39\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[38;5;28mopen\u001b[39m(file_like, mode), \u001b[38;5;28;01mTrue\u001b[39;00m\n\u001b[0;32m     40\u001b[0m \u001b[38;5;28;01mexcept\u001b[39;00m \u001b[38;5;167;01mOSError\u001b[39;00m \u001b[38;5;28;01mas\u001b[39;00m e:\n\u001b[0;32m     41\u001b[0m     \u001b[38;5;66;03m# Probably \"not found\"\u001b[39;00m\n",
-      "\u001b[1;31mFileNotFoundError\u001b[0m: [Errno 2] No such file or directory: 'testII'",
-      "\nDuring handling of the above exception, another exception occurred:\n",
-      "\u001b[1;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
-      "Cell \u001b[1;32mIn[10], line 7\u001b[0m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;21;01mscipy\u001b[39;00m\u001b[38;5;21;01m.\u001b[39;00m\u001b[38;5;21;01mlinalg\u001b[39;00m \u001b[38;5;28;01mimport\u001b[39;00m cholesky, solve_triangular\n\u001b[0;32m      6\u001b[0m \u001b[38;5;66;03m# Caricamento dati\u001b[39;00m\n\u001b[1;32m----> 7\u001b[0m dati \u001b[38;5;241m=\u001b[39m loadmat(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mtestII\u001b[39m\u001b[38;5;124m'\u001b[39m)\n\u001b[0;32m      8\u001b[0m A \u001b[38;5;241m=\u001b[39m dati[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mA\u001b[39m\u001b[38;5;124m\"\u001b[39m]\u001b[38;5;241m.\u001b[39mastype(\u001b[38;5;28mfloat\u001b[39m)\n\u001b[0;32m      9\u001b[0m b \u001b[38;5;241m=\u001b[39m dati[\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mb\u001b[39m\u001b[38;5;124m\"\u001b[39m]\u001b[38;5;241m.\u001b[39mastype(\u001b[38;5;28mfloat\u001b[39m)\n",
-      "File \u001b[1;32m~\\anaconda3\\Lib\\site-packages\\scipy\\io\\matlab\\_mio.py:225\u001b[0m, in \u001b[0;36mloadmat\u001b[1;34m(file_name, mdict, appendmat, **kwargs)\u001b[0m\n\u001b[0;32m     88\u001b[0m \u001b[38;5;250m\u001b[39m\u001b[38;5;124;03m\"\"\"\u001b[39;00m\n\u001b[0;32m     89\u001b[0m \u001b[38;5;124;03mLoad MATLAB file.\u001b[39;00m\n\u001b[0;32m     90\u001b[0m \n\u001b[1;32m   (...)\u001b[0m\n\u001b[0;32m    222\u001b[0m \u001b[38;5;124;03m    3.14159265+3.14159265j])\u001b[39;00m\n\u001b[0;32m    223\u001b[0m \u001b[38;5;124;03m\"\"\"\u001b[39;00m\n\u001b[0;32m    224\u001b[0m variable_names \u001b[38;5;241m=\u001b[39m kwargs\u001b[38;5;241m.\u001b[39mpop(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mvariable_names\u001b[39m\u001b[38;5;124m'\u001b[39m, \u001b[38;5;28;01mNone\u001b[39;00m)\n\u001b[1;32m--> 225\u001b[0m \u001b[38;5;28;01mwith\u001b[39;00m _open_file_context(file_name, appendmat) \u001b[38;5;28;01mas\u001b[39;00m f:\n\u001b[0;32m    226\u001b[0m     MR, _ \u001b[38;5;241m=\u001b[39m mat_reader_factory(f, \u001b[38;5;241m*\u001b[39m\u001b[38;5;241m*\u001b[39mkwargs)\n\u001b[0;32m    227\u001b[0m     matfile_dict \u001b[38;5;241m=\u001b[39m MR\u001b[38;5;241m.\u001b[39mget_variables(variable_names)\n",
-      "File \u001b[1;32m~\\anaconda3\\Lib\\contextlib.py:137\u001b[0m, in \u001b[0;36m_GeneratorContextManager.__enter__\u001b[1;34m(self)\u001b[0m\n\u001b[0;32m    135\u001b[0m \u001b[38;5;28;01mdel\u001b[39;00m \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39margs, \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mkwds, \u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mfunc\n\u001b[0;32m    136\u001b[0m \u001b[38;5;28;01mtry\u001b[39;00m:\n\u001b[1;32m--> 137\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[38;5;28mnext\u001b[39m(\u001b[38;5;28mself\u001b[39m\u001b[38;5;241m.\u001b[39mgen)\n\u001b[0;32m    138\u001b[0m \u001b[38;5;28;01mexcept\u001b[39;00m \u001b[38;5;167;01mStopIteration\u001b[39;00m:\n\u001b[0;32m    139\u001b[0m     \u001b[38;5;28;01mraise\u001b[39;00m \u001b[38;5;167;01mRuntimeError\u001b[39;00m(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mgenerator didn\u001b[39m\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mt yield\u001b[39m\u001b[38;5;124m\"\u001b[39m) \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;28;01mNone\u001b[39;00m\n",
-      "File \u001b[1;32m~\\anaconda3\\Lib\\site-packages\\scipy\\io\\matlab\\_mio.py:17\u001b[0m, in \u001b[0;36m_open_file_context\u001b[1;34m(file_like, appendmat, mode)\u001b[0m\n\u001b[0;32m     15\u001b[0m \u001b[38;5;129m@contextmanager\u001b[39m\n\u001b[0;32m     16\u001b[0m \u001b[38;5;28;01mdef\u001b[39;00m \u001b[38;5;21m_open_file_context\u001b[39m(file_like, appendmat, mode\u001b[38;5;241m=\u001b[39m\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mrb\u001b[39m\u001b[38;5;124m'\u001b[39m):\n\u001b[1;32m---> 17\u001b[0m     f, opened \u001b[38;5;241m=\u001b[39m _open_file(file_like, appendmat, mode)\n\u001b[0;32m     18\u001b[0m     \u001b[38;5;28;01mtry\u001b[39;00m:\n\u001b[0;32m     19\u001b[0m         \u001b[38;5;28;01myield\u001b[39;00m f\n",
-      "File \u001b[1;32m~\\anaconda3\\Lib\\site-packages\\scipy\\io\\matlab\\_mio.py:45\u001b[0m, in \u001b[0;36m_open_file\u001b[1;34m(file_like, appendmat, mode)\u001b[0m\n\u001b[0;32m     43\u001b[0m     \u001b[38;5;28;01mif\u001b[39;00m appendmat \u001b[38;5;129;01mand\u001b[39;00m \u001b[38;5;129;01mnot\u001b[39;00m file_like\u001b[38;5;241m.\u001b[39mendswith(\u001b[38;5;124m'\u001b[39m\u001b[38;5;124m.mat\u001b[39m\u001b[38;5;124m'\u001b[39m):\n\u001b[0;32m     44\u001b[0m         file_like \u001b[38;5;241m+\u001b[39m\u001b[38;5;241m=\u001b[39m \u001b[38;5;124m'\u001b[39m\u001b[38;5;124m.mat\u001b[39m\u001b[38;5;124m'\u001b[39m\n\u001b[1;32m---> 45\u001b[0m     \u001b[38;5;28;01mreturn\u001b[39;00m \u001b[38;5;28mopen\u001b[39m(file_like, mode), \u001b[38;5;28;01mTrue\u001b[39;00m\n\u001b[0;32m     46\u001b[0m \u001b[38;5;28;01melse\u001b[39;00m:\n\u001b[0;32m     47\u001b[0m     \u001b[38;5;28;01mraise\u001b[39;00m \u001b[38;5;167;01mOSError\u001b[39;00m(\n\u001b[0;32m     48\u001b[0m         \u001b[38;5;124m'\u001b[39m\u001b[38;5;124mReader needs file name or open file-like object\u001b[39m\u001b[38;5;124m'\u001b[39m\n\u001b[0;32m     49\u001b[0m     ) \u001b[38;5;28;01mfrom\u001b[39;00m \u001b[38;5;21;01me\u001b[39;00m\n",
-      "\u001b[1;31mFileNotFoundError\u001b[0m: [Errno 2] No such file or directory: 'testII.mat'"
-     ]
-    }
-   ],
-   "source": [
-    "#ES 1\n",
-    "from scipy.io import loadmat\n",
-    "import numpy as np\n",
-    "from scipy.linalg import cholesky, solve_triangular\n",
-    "\n",
-    "# Caricamento dati\n",
-    "dati = loadmat('testII')\n",
-    "A = dati[\"A\"].astype(float)\n",
-    "b = dati[\"b\"].astype(float)\n",
-    "A1 = dati[\"A1\"].astype(float)\n",
-    "b1 = dati[\"b1\"].astype(float)\n",
-    "\n",
-    "print(\"SISTEMA 1: A x = b\")\n",
-    "print(\"=\"*30)\n",
-    "\n",
-    "# Verifica proprieta matrice A\n",
-    "is_sym = np.allclose(A, A.T)\n",
-    "eigenvals = np.linalg.eigvals(A)\n",
-    "is_pos_def = np.all(eigenvals > 0)\n",
-    "\n",
-    "print(f\"A e simmetrica: {is_sym}\")\n",
-    "print(f\"A e definita positiva: {is_pos_def}\")\n",
-    "print(\"METODO: Cholesky (A e simmetrica definita positiva)\")\n",
-    "\n",
-    "# Risoluzione con Cholesky\n",
-    "L = cholesky(A, lower=True)\n",
-    "y = solve_triangular(L, b, lower=True)\n",
-    "x = solve_triangular(L.T, y, lower=False)\n",
-    "\n",
-    "print(f\"Soluzione x: {x.flatten()}\")\n",
-    "print(f\"Residuo: {np.linalg.norm(A @ x - b):.2e}\")\n",
-    "\n",
-    "print(\"\\nSISTEMA 2: A1 x1 = b1\")\n",
-    "print(\"=\"*30)\n",
-    "\n",
-    "print(f\"A1 e {A1.shape} (rettangolare)\")\n",
-    "print(\"METODO: Minimi quadrati (sistema sovradeterminato)\")\n",
-    "\n",
-    "# Risoluzione con minimi quadrati\n",
-    "x1, residuals, rank, s = np.linalg.lstsq(A1, b1, rcond=None)\n",
-    "\n",
-    "print(f\"Soluzione x1: {x1.flatten()}\")\n",
-    "residuo_A1 = np.linalg.norm(A1 @ x1 - b1)\n",
-    "print(f\"Residuo: {residuo_A1:.2e}\")\n",
-    "\n",
-    "print(\"\\nPERTURBAZIONE (0.1% su b1[0])\")\n",
-    "print(\"=\"*30)\n",
-    "\n",
-    "# Perturbazione del termine noto\n",
-    "b1_pert = b1.copy()\n",
-    "b1_pert[0, 0] += 0.001 * b1[0, 0]  # 0.1%\n",
-    "\n",
-    "# Risoluzione sistema perturbato\n",
-    "x1_pert, _, _, _ = np.linalg.lstsq(A1, b1_pert, rcond=None)\n",
-    "\n",
-    "# Calcolo errori relativi\n",
-    "err_dati = np.linalg.norm(b1_pert - b1) / np.linalg.norm(b1)\n",
-    "err_sol = np.linalg.norm(x1_pert - x1) / np.linalg.norm(x1)\n",
-    "\n",
-    "print(f\"Errore relativo sui dati: {err_dati:.2e}\")\n",
-    "print(f\"Errore relativo sulla soluzione: {err_sol:.2e}\")\n",
-    "\n",
-    "# Numero di condizione\n",
-    "cond_num = np.linalg.cond(A1.T @ A1)\n",
-    "print(f\"Numero di condizione k(A1^T A1): {cond_num:.2e}\")\n",
-    "print(f\"Fattore di amplificazione: {err_sol/err_dati:.1f}\")\n",
-    "\n",
-    "#ES 2\n",
-    "import numpy as np\n",
-    "import matplotlib.pyplot as plt\n",
-    "\n",
-    "# Equazioni II grado: x^2 + (4^(2k) - 2^(-2k))x - 4^(2k)*2^(-2k) = 0\n",
-    "# Soluzioni esatte: x1 = -4^(2k), x2 = 2^(-2k)\n",
-    "\n",
-    "k_values = np.arange(4, 13)\n",
-    "\n",
-    "def risolvi_equazione(k):\n",
-    "    \"\"\"Formula risolutiva classica\"\"\"\n",
-    "    a = 1\n",
-    "    b = 4.0**(2*k) - 2.0**(-2*k)\n",
-    "    c = -4.0**(2*k) * 2.0**(-2*k)\n",
-    "    \n",
-    "    disc = b**2 - 4*a*c\n",
-    "    sqrt_disc = np.sqrt(disc)\n",
-    "    \n",
-    "    x1_calc = (-b + sqrt_disc) / (2*a)\n",
-    "    x2_calc = (-b - sqrt_disc) / (2*a)\n",
-    "    \n",
-    "    x1_exact = -4.0**(2*k)\n",
-    "    x2_exact = 2.0**(-2*k)\n",
-    "    \n",
-    "    return x1_calc, x2_calc, x1_exact, x2_exact\n",
-    "\n",
-    "# Calcolo errori relativi\n",
-    "errori_x1, errori_x2 = [], []\n",
-    "\n",
-    "print(\"k\\tErr_x1\\t\\tErr_x2\")\n",
-    "for k in k_values:\n",
-    "    x1_calc, x2_calc, x1_exact, x2_exact = risolvi_equazione(k)\n",
-    "    \n",
-    "    err_x1 = abs(x1_calc - x1_exact) / abs(x1_exact)\n",
-    "    err_x2 = abs(x2_calc - x2_exact) / abs(x2_exact)\n",
-    "    \n",
-    "    errori_x1.append(err_x1)\n",
-    "    errori_x2.append(err_x2)\n",
-    "    \n",
-    "    print(f\"{k}\\t{err_x1:.2e}\\t{err_x2:.2e}\")\n",
-    "\n",
-    "# Grafico degli errori\n",
-    "plt.figure(figsize=(10, 6))\n",
-    "plt.semilogy(k_values, errori_x1, 'ro-', label='x1 = -4^(2k)', linewidth=2)\n",
-    "plt.semilogy(k_values, errori_x2, 'bo-', label='x2 = 2^(-2k)', linewidth=2)\n",
-    "plt.xlabel('k')\n",
-    "plt.ylabel('Errore relativo')\n",
-    "plt.title('Stabilita numerica delle formule classiche')\n",
-    "plt.grid(True)\n",
-    "plt.legend()\n",
-    "plt.show()\n",
-    "\n",
-    "print(\"\\nANALISI STABILITA:\")\n",
-    "print(\"x1: INSTABILE - errore cresce esponenzialmente\")\n",
-    "print(\"x2: STABILE - errore rimane piccolo\")\n",
-    "print(\"\\nMotivo: Cancellazione numerica in x1 = (-b + sqrt(b^2-4ac))/2a\")\n",
-    "print(\"Quando b >> sqrt(4ac), si ha sqrt(b^2-4ac) circa uguale a b\")\n",
-    "print(\"quindi x1 circa uguale a 0/2a (cancellazione!)\")\n",
-    "\n",
-    "# Formula stabile alternativa\n",
-    "def formula_stabile(k):\n",
-    "    \"\"\"Evita cancellazione numerica\"\"\"\n",
-    "    a = 1\n",
-    "    b = 4.0**(2*k) - 2.0**(-2*k)\n",
-    "    c = -4.0**(2*k) * 2.0**(-2*k)\n",
-    "    \n",
-    "    disc = b**2 - 4*a*c\n",
-    "    sqrt_disc = np.sqrt(disc)\n",
-    "    \n",
-    "    # Usa x1*x2 = c/a per evitare cancellazione\n",
-    "    if b > 0:\n",
-    "        x1 = -2*c / (b + sqrt_disc)  # Formula stabile per x1\n",
-    "        x2 = (-b - sqrt_disc) / (2*a)\n",
-    "    else:\n",
-    "        x1 = (-b + sqrt_disc) / (2*a)\n",
-    "        x2 = -2*c / (b - sqrt_disc)\n",
-    "    \n",
-    "    return x1, x2\n",
-    "\n",
-    "errori_x1_stabile = []\n",
-    "print(\"\\nALGORITMO STABILE:\")\n",
-    "print(\"k\\tErr_classico\\tErr_stabile\")\n",
-    "for k in k_values:\n",
-    "    x1_stabile, x2_stabile = formula_stabile(k)\n",
-    "    _, _, x1_exact, x2_exact = risolvi_equazione(k)\n",
-    "    \n",
-    "    err_stabile = abs(x1_stabile - x1_exact) / abs(x1_exact)\n",
-    "    errori_x1_stabile.append(err_stabile)\n",
-    "    \n",
-    "    print(f\"{k}\\t{errori_x1[k-4]:.2e}\\t\\t{err_stabile:.2e}\")\n",
-    "\n",
-    "# Confronto stabilita\n",
-    "plt.figure(figsize=(8, 5))\n",
-    "plt.semilogy(k_values, errori_x1, 'r--', label='x1 classico (instabile)', linewidth=2)\n",
-    "plt.semilogy(k_values, errori_x1_stabile, 'g-', label='x1 stabile', linewidth=2)\n",
-    "plt.xlabel('k')\n",
-    "plt.ylabel('Errore relativo')\n",
-    "plt.title('Confronto stabilita: Formula classica vs. stabile')\n",
-    "plt.legend()\n",
-    "plt.grid(True)\n",
-    "plt.show()\n",
-    "\n",
-    "print(f\"\\nRISULTATO: Formula stabile mantiene errore controllato\")\n",
-    "\n",
-    "# Domande teoria:\n",
-    "# 3,2,2,3,3"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python [conda env:base] *",
-   "language": "python",
-   "name": "conda-base-py"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.12.7"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+#ES 1
+from scipy.io import loadmat
+import numpy as np
+from scipy.linalg import cholesky, solve_triangular
+
+# Caricamento dati
+dati = loadmat('testII')
+A = dati["A"].astype(float)
+b = dati["b"].astype(float)
+A1 = dati["A1"].astype(float)
+b1 = dati["b1"].astype(float)
+
+print("SISTEMA 1: A x = b")
+print("="*30)
+
+# Verifica proprieta matrice A
+is_sym = np.allclose(A, A.T)
+eigenvals = np.linalg.eigvals(A)
+is_pos_def = np.all(eigenvals > 0)
+
+print(f"A e simmetrica: {is_sym}")
+print(f"A e definita positiva: {is_pos_def}")
+print("METODO: Cholesky (A e simmetrica definita positiva)")
+
+# Risoluzione con Cholesky
+L = cholesky(A, lower=True)
+y = solve_triangular(L, b, lower=True)
+x = solve_triangular(L.T, y, lower=False)
+
+print(f"Soluzione x: {x.flatten()}")
+print(f"Residuo: {np.linalg.norm(A @ x - b):.2e}")
+
+print("\nSISTEMA 2: A1 x1 = b1")
+print("="*30)
+
+print(f"A1 e {A1.shape} (rettangolare)")
+print("METODO: Minimi quadrati (sistema sovradeterminato)")
+
+# Risoluzione con minimi quadrati
+x1, residuals, rank, s = np.linalg.lstsq(A1, b1, rcond=None)
+
+print(f"Soluzione x1: {x1.flatten()}")
+residuo_A1 = np.linalg.norm(A1 @ x1 - b1)
+print(f"Residuo: {residuo_A1:.2e}")
+
+print("\nPERTURBAZIONE (0.1% su b1[0])")
+print("="*30)
+
+# Perturbazione del termine noto
+b1_pert = b1.copy()
+b1_pert[0, 0] += 0.001 * b1[0, 0]  # 0.1%
+
+# Risoluzione sistema perturbato
+x1_pert, _, _, _ = np.linalg.lstsq(A1, b1_pert, rcond=None)
+
+# Calcolo errori relativi
+err_dati = np.linalg.norm(b1_pert - b1) / np.linalg.norm(b1)
+err_sol = np.linalg.norm(x1_pert - x1) / np.linalg.norm(x1)
+
+print(f"Errore relativo sui dati: {err_dati:.2e}")
+print(f"Errore relativo sulla soluzione: {err_sol:.2e}")
+
+# Numero di condizione
+cond_num = np.linalg.cond(A1.T @ A1)
+print(f"Numero di condizione k(A1^T A1): {cond_num:.2e}")
+print(f"Fattore di amplificazione: {err_sol/err_dati:.1f}")
+
+import numpy as np
+
+# Definizione del sistema A3 x3 = b3
+A3 = np.array([[8.0, 0, 1, 1],
+               [0, 0.8, 1, 0],
+               [1, 1, 2, 0],
+               [1, 0, 0.0, 2.0]])
+
+b3 = np.array([10.0, 1.8, 4.0, 3.0])
+
+print("VERIFICA CONVERGENZA GAUSS-SEIDEL")
+print("="*40)
+
+def verifica_convergenza_GS(A):
+    """
+    Verifica convergenza Gauss-Seidel usando criteri teorici
+    """
+    n = A.shape[0]
+    
+    # Criterio 1: Dominanza diagonale stretta
+    print("CRITERIO 1: Dominanza diagonale stretta")
+    dom_diag = True
+    for i in range(n):
+        somma_non_diag = sum(abs(A[i, j]) for j in range(n) if j != i)
+        if abs(A[i, i]) <= somma_non_diag:
+            dom_diag = False
+    
+    if dom_diag:
+        print("CONVERGENZA GARANTITA: Matrice diagonalmente dominante")
+        return True
+    else:
+        print("Non diagonalmente dominante")
+    
+    # Criterio 2: Simmetrica definita positiva
+    print("\nCRITERIO 2: Simmetrica definita positiva")
+    is_sym = np.allclose(A, A.T)
+    print(f"Simmetrica: {is_sym}")
+    
+    if is_sym:
+        eigenvals = np.linalg.eigvals(A)
+        is_pos_def = np.all(eigenvals > 0)
+        print(f"Definita positiva: {is_pos_def}")
+        print(f"Autovalori: {eigenvals}")
+        
+        if is_pos_def:
+            print("CONVERGENZA GARANTITA: Matrice simmetrica definita positiva")
+            return True
+    
+    return False
+
+converge = verifica_convergenza_GS(A3)
+
+print(f"\nIMPLEMENTAZIONE GAUSS-SEIDEL")
+print("="*40)
+
+def gauss_seidel(A, b, x0=None, max_iter=100, tol=1e-10):
+    n = len(b)
+    if x0 is None:
+        x = np.zeros(n)
+    else:
+        x = x0.copy()
+    
+    print(f"Iterazione 0: x = {x}")
+    
+    for k in range(max_iter):
+        x_old = x.copy()
+        for i in range(n):
+            somma = 0
+            for j in range(n):
+                if j != i:
+                    somma += A[i, j] * x[j]
+            x[i] = (b[i] - somma) / A[i, i]
+        
+        # Calcolo errore
+        errore = np.linalg.norm(x - x_old, ord=np.inf)
+        
+        if (k + 1) <= 5 or (k + 1) % 10 == 0:
+            print(f"Iterazione {k+1}: x = {x}, errore = {errore:.2e}")
+        
+        # Test di convergenza
+        if errore < tol:
+            print(f"\nConvergenza raggiunta in {k+1} iterazioni")
+            print(f"Errore finale: {errore:.2e}")
+            break
+    
+    return x, k+1
+
+# Risoluzione con Gauss-Seidel
+print("Risoluzione del sistema con Gauss-Seidel:")
+x_gs, iter_gs = gauss_seidel(A3, b3)
+
+print(f"\nSOLUZIONE FINALE:")
+print(f"x3 = {x_gs}")
+
+# Verifica della soluzione
+residuo = A3 @ x_gs - b3
+print(f"Residuo ||A3*x3 - b3||: {np.linalg.norm(residuo):.2e}")
+
+# Confronto con soluzione esatta
+x_exact = np.linalg.solve(A3, b3)
+errore_sol = np.linalg.norm(x_gs - x_exact)
+print(f"Errore rispetto soluzione esatta: {errore_sol:.2e}")
+print(f"Soluzione esatta: {x_exact}")
