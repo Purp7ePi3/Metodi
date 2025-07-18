@@ -168,3 +168,136 @@ x_exact = np.linalg.solve(A3, b3)
 errore_sol = np.linalg.norm(x_gs - x_exact)
 print(f"Errore rispetto soluzione esatta: {errore_sol:.2e}")
 print(f"Soluzione esatta: {x_exact}")
+
+#ES 2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Equazioni II grado: x^2 + (4^(2k) - 2^(-2k))x - 4^(2k)*2^(-2k) = 0
+# Soluzioni esatte: x1 = -4^(2k), x2 = 2^(-2k)
+
+k_values = np.arange(4, 13)
+
+def risolvi_equazione(k):
+    """Formula risolutiva classica"""
+    a = 1
+    b = 4.0**(2*k) - 2.0**(-2*k)
+    c = -4.0**(2*k) * 2.0**(-2*k)
+    
+    disc = b**2 - 4*a*c
+    sqrt_disc = np.sqrt(disc)
+    
+    x1_calc = (-b + sqrt_disc) / (2*a)
+    x2_calc = (-b - sqrt_disc) / (2*a)
+    
+    x1_exact = -4.0**(2*k)
+    x2_exact = 2.0**(-2*k)
+    
+    return x1_calc, x2_calc, x1_exact, x2_exact
+
+# Calcolo errori relativi
+errori_x1, errori_x2 = [], []
+
+print("k\tErr_x1\t\tErr_x2")
+for k in k_values:
+    x1_calc, x2_calc, x1_exact, x2_exact = risolvi_equazione(k)
+    
+    err_x1 = abs(x1_calc - x1_exact) / abs(x1_exact)
+    err_x2 = abs(x2_calc - x2_exact) / abs(x2_exact)
+    
+    errori_x1.append(err_x1)
+    errori_x2.append(err_x2)
+    
+    print(f"{k}\t{err_x1:.2e}\t{err_x2:.2e}")
+
+# Grafico degli errori
+plt.figure(figsize=(10, 6))
+plt.semilogy(k_values, errori_x1, 'ro-', label='x1 = -4^(2k)', linewidth=2)
+plt.semilogy(k_values, errori_x2, 'bo-', label='x2 = 2^(-2k)', linewidth=2)
+plt.xlabel('k')
+plt.ylabel('Errore relativo')
+plt.title('Stabilita numerica delle formule classiche')
+plt.grid(True)
+plt.legend()
+plt.show()
+
+print("\nANALISI STABILITA:")
+print("x1: INSTABILE - errore cresce esponenzialmente")
+print("x2: STABILE - errore rimane piccolo")
+print("\nMotivo: Cancellazione numerica in x1 = (-b + sqrt(b^2-4ac))/2a")
+print("Quando b >> sqrt(4ac), si ha sqrt(b^2-4ac) circa uguale a b")
+print("quindi x1 circa uguale a 0/2a (cancellazione!)")
+
+# Formula stabile alternativa
+def formula_stabile(k):
+    """Evita cancellazione numerica"""
+    a = 1
+    b = 4.0**(2*k) - 2.0**(-2*k)
+    c = -4.0**(2*k) * 2.0**(-2*k)
+    
+    disc = b**2 - 4*a*c
+    sqrt_disc = np.sqrt(disc)
+    
+    # Usa x1*x2 = c/a per evitare cancellazione
+    if b > 0:
+        x1 = -2*c / (b + sqrt_disc)  # Formula stabile per x1
+        x2 = (-b - sqrt_disc) / (2*a)
+    else:
+        x1 = (-b + sqrt_disc) / (2*a)
+        x2 = -2*c / (b - sqrt_disc)
+    
+    return x1, x2
+
+errori_x1_stabile = []
+print("\nALGORITMO STABILE:")
+print("k\tErr_classico\tErr_stabile")
+for k in k_values:
+    x1_stabile, x2_stabile = formula_stabile(k)
+    _, _, x1_exact, x2_exact = risolvi_equazione(k)
+    
+    err_stabile = abs(x1_stabile - x1_exact) / abs(x1_exact)
+    errori_x1_stabile.append(err_stabile)
+    
+    print(f"{k}\t{errori_x1[k-4]:.2e}\t\t{err_stabile:.2e}")
+
+# Confronto stabilita
+plt.figure(figsize=(8, 5))
+plt.semilogy(k_values, errori_x1, 'r--', label='x1 classico (instabile)', linewidth=2)
+plt.semilogy(k_values, errori_x1_stabile, 'g-', label='x1 stabile', linewidth=2)
+plt.xlabel('k')
+plt.ylabel('Errore relativo')
+plt.title('Confronto stabilita: Formula classica vs. stabile')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+print(f"\nRISULTATO: Formula stabile mantiene errore controllato")
+print("CONDIZIONAMENTO DI f: R -> R")
+print("="*40)
+print()
+print("Dato un problema f(x), con perturbazione delta_x:")
+print("f(x + delta_x) - f(x) circa uguale a f'(x) * delta_x")
+print()
+print("CONDIZIONAMENTO ASSOLUTO:")
+print("k_abs(f,x) = lim(delta_x->0) |delta_f|/|delta_x| = |f'(x)|")
+print()
+print("CONDIZIONAMENTO RELATIVO:")
+print("k_rel(f,x) = lim(delta_x->0) (|delta_f|/|f(x)|)/(|delta_x|/|x|)")
+print("           = |f'(x)| * |x| / |f(x)|")
+print("           = |x * f'(x) / f(x)|")
+print()
+
+# Esempio pratico
+def esempio_condizionamento():
+    print("ESEMPIO: f(x) = x^2")
+    print("f'(x) = 2x")
+    print("k_abs = |f'(x)| = |2x| = 2|x|")
+    print("k_rel = |x*f'(x)/f(x)| = |x*2x/x^2| = 2")
+    print()
+    print("Interpretazione:")
+    print("- Il condizionamento assoluto cresce linearmente con |x|")
+    print("- Il condizionamento relativo e costante = 2")
+
+esempio_condizionamento()
+
+#3,2,2,3,3 teoria
